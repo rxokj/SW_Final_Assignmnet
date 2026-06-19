@@ -13,6 +13,9 @@
         /* ==========================================================================
            [디자인 가이드 - Fable 스타일 토큰 정의]
            ========================================================================== */
+        /* ============================================================
+           Fable 스타일 토큰
+           ============================================================ */
         :root {
             /* Colors */
             --color-fable-forest: #064c37;
@@ -24,11 +27,9 @@
             --color-char: #070607;
             --color-pure-white: #ffffff;
             --color-fog: #ededed;
-
             /* Typography - Font Families */
             --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --font-heldane-display: 'Fraunces', serif; /* Heldane Display 대체로 Fraunces 적용 */
-
             /* Typography - Scale & Tracking */
             --text-caption: 12px;
             --leading-caption: 1.5;
@@ -59,7 +60,6 @@
             
             --text-display: 72px;
             --leading-display: 0.88;
-
             /* Spacing */
             --spacing-4: 4px;
             --spacing-8: 8px;
@@ -73,28 +73,41 @@
             --spacing-52: 52px;
             --spacing-80: 80px;
             --spacing-100: 100px;
-
             /* Border Radius */
             --radius-cards: 12px;
             --radius-buttons: 60px;
             --radius-largecards: 48px;
             --radius-smallchips: 8px;
-
             /* Shadows */
             --shadow-lg: rgba(0, 0, 0, 0.4) 0px 4px 20px 0px;
             --shadow-lg-2: rgba(0, 0, 0, 0.6) 0px 4px 20px 0px;
+            --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-heldane: 'Fraunces', serif;
+            --text-caption: 12px; --leading-caption: 1.5; --tracking-caption: -0.016em;
+            --text-body-sm: 14px; --leading-body-sm: 1.43; --tracking-body-sm: -0.025em;
+            --text-body: 16px; --leading-body: 1.5; --tracking-body: -0.02em;
+            --text-subheading: 20px; --leading-subheading: 1.33;
+            --text-heading-sm: 24px; --leading-heading-sm: 1.42;
+            --text-heading: 30px; --leading-heading: 1.25;
+            --text-heading-lg: 48px; --leading-heading-lg: 0.94;
+            --sp-4: 4px; --sp-8: 8px; --sp-12: 12px; --sp-16: 16px;
+            --sp-20: 20px; --sp-24: 24px; --sp-28: 28px; --sp-32: 32px;
+            --sp-40: 40px; --sp-52: 52px; --sp-80: 80px; --sp-100: 100px;
+            --r-sm: 8px; --r-md: 12px; --r-lg: 48px; --r-pill: 60px;
+            --shadow: rgba(0,0,0,0.4) 0px 4px 20px 0px;
+            --shadow-2: rgba(0,0,0,0.6) 0px 4px 20px 0px;
         }
-
         /* 기본 초기화 */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: var(--font-inter);
             background-color: var(--color-pure-white);
+            background: var(--color-pure-white);
             color: var(--color-graphite);
             font-size: var(--text-body);
             line-height: var(--leading-body);
@@ -102,8 +115,10 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
         /* 내비게이션 바 (Transparent Minimal) */
+        /* ============================================================
+           Navbar
+           ============================================================ */
         .navbar {
             max-width: 1200px;
             margin: 0 auto;
@@ -117,8 +132,11 @@
             left: 0;
             right: 0;
             z-index: 10;
+            position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+            max-width: 1200px; margin: 0 auto;
+            padding: var(--sp-24) var(--sp-40);
+            display: flex; justify-content: space-between; align-items: center;
         }
-
         .navbar-brand {
             font-family: var(--font-heldane-display);
             font-size: var(--text-heading-sm);
@@ -126,8 +144,10 @@
             color: var(--color-pure-white);
             text-decoration: none;
             letter-spacing: -0.02em;
+            font-family: var(--font-heldane); font-size: var(--text-heading-sm);
+            font-weight: 500; color: var(--color-pure-white);
+            text-decoration: none; letter-spacing: -0.02em;
         }
-
         /* ==========================================================================
            [Section Band System 적용]
            - Fable Forest(#064c37) -> Paper Cream(#f7f4ee) -> Char(#070607) 구조
@@ -138,15 +158,19 @@
             display: flex;
             justify-content: center;
         }
-
+        /* ============================================================
+           Section Bands
+           ============================================================ */
+        .section-band { width: 100%; padding: var(--sp-80) 0; display: flex; justify-content: center; }
+        .section-container { width: 100%; max-width: 1200px; padding: 0 var(--sp-40); margin: 0 auto; }
         .section-container {
             width: 100%;
             max-width: 1200px;
             padding: 0 var(--spacing-40);
             margin: 0 auto;
         }
-
         /* 1. Hero Band (Fable Forest) - 입력 폼 배치 */
+        /* Hero */
         .band-hero {
             background-color: var(--color-fable-forest);
             color: var(--color-pure-white);
@@ -154,27 +178,28 @@
             padding-top: var(--spacing-100);
             display: flex;
             align-items: center;
+            background: var(--color-fable-forest); color: var(--color-pure-white);
+            min-height: 520px; padding-top: var(--sp-100); display: flex; align-items: center;
         }
-
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--spacing-80);
             align-items: center;
         }
-
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-80); align-items: center; }
         @media (max-width: 900px) {
             .hero-grid {
                 grid-template-columns: 1fr;
                 gap: var(--spacing-40);
                 padding-top: var(--spacing-40);
             }
+            .hero-grid { grid-template-columns: 1fr; gap: var(--sp-40); padding-top: var(--sp-40); }
         }
-
         .hero-text-block {
             max-width: 520px;
         }
-
+        .hero-text-block { max-width: 520px; }
         .hero-title {
             font-family: var(--font-heldane-display);
             font-size: var(--text-heading-lg);
@@ -182,45 +207,51 @@
             color: var(--color-pure-white);
             margin-bottom: var(--spacing-20);
             font-weight: 400;
+            font-family: var(--font-heldane); font-size: var(--text-heading-lg);
+            line-height: var(--leading-heading-lg); color: var(--color-pure-white);
+            margin-bottom: var(--sp-20); font-weight: 400;
         }
-
+        .hero-subtitle { font-size: var(--text-body); line-height: 1.6; color: rgba(255,255,255,0.85); }
         .hero-subtitle {
             font-size: var(--text-body);
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.85);
             letter-spacing: var(--tracking-body);
         }
-
         /* ==========================================================================
            [PRD 1 - 입력 기능 UI 구조 & Fable Cream Card 스타일]
            ========================================================================== */
+        /* ============================================================
+           Input Form (PRD 1)
+           ============================================================ */
         .input-card {
             background-color: var(--color-pure-white);
             border-radius: var(--radius-cards);
             padding: var(--spacing-32);
             box-shadow: var(--shadow-lg);
             color: var(--color-ink);
+            background: var(--color-pure-white); border-radius: var(--r-md);
+            padding: var(--sp-32); box-shadow: var(--shadow); color: var(--color-ink);
         }
-
         .input-form {
             display: flex;
             flex-direction: column;
             gap: var(--spacing-20);
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
             gap: var(--spacing-8);
         }
-
         .form-group label {
             font-size: var(--text-body-sm);
             font-weight: 500;
             color: var(--color-ink);
             letter-spacing: var(--tracking-body-sm);
         }
-
+        .input-form { display: flex; flex-direction: column; gap: var(--sp-20); }
+        .form-group { display: flex; flex-direction: column; gap: var(--sp-8); }
+        .form-group label { font-size: var(--text-body-sm); font-weight: 500; color: var(--color-ink); }
         .form-group textarea {
             font-family: var(--font-heldane-display);
             font-size: var(--text-body);
@@ -233,19 +264,23 @@
             min-height: 90px;
             outline: none;
             transition: border-color 0.2s, background-color 0.2s;
+            font-family: var(--font-heldane); font-size: var(--text-body);
+            padding: var(--sp-12); border: 1px solid var(--color-fog); border-radius: var(--r-sm);
+            background: var(--color-paper-cream); color: var(--color-ink);
+            resize: vertical; min-height: 90px; outline: none;
+            transition: border-color .2s, background .2s;
         }
-
         .form-group textarea:focus {
             border-color: var(--color-fable-forest);
             background-color: var(--color-pure-white);
         }
-
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--spacing-16);
         }
-
+        .form-group textarea:focus { border-color: var(--color-fable-forest); background: #fff; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); }
         .form-group input {
             font-family: var(--font-inter);
             font-size: var(--text-body-sm);
@@ -256,14 +291,17 @@
             color: var(--color-ink);
             outline: none;
             transition: border-color 0.2s, background-color 0.2s;
+            font-family: var(--font-inter); font-size: var(--text-body-sm);
+            padding: var(--sp-12); border: 1px solid var(--color-fog); border-radius: var(--r-sm);
+            background: var(--color-paper-cream); color: var(--color-ink); outline: none;
+            transition: border-color .2s, background .2s;
         }
-
         .form-group input:focus {
             border-color: var(--color-fable-forest);
             background-color: var(--color-pure-white);
         }
-
         /* Fable Filled Pill Button - Dark */
+        .form-group input:focus { border-color: var(--color-fable-forest); background: #fff; }
         .btn-submit {
             font-family: var(--font-inter);
             background-color: var(--color-charcoal-plum);
@@ -278,24 +316,31 @@
             letter-spacing: var(--tracking-body);
             transition: background-color 0.2s, transform 0.1s;
             margin-top: var(--spacing-12);
+            font-family: var(--font-inter); background: var(--color-charcoal-plum);
+            color: var(--color-pure-white); border: none;
+            padding: var(--sp-16) var(--sp-28); font-size: var(--text-body); font-weight: 500;
+            border-radius: var(--r-pill); cursor: pointer; box-shadow: var(--shadow);
+            transition: background .2s, transform .1s; margin-top: var(--sp-12);
         }
-
+        .btn-submit:hover { background: var(--color-ink); }
+        .btn-submit:active { transform: scale(.98); }
         .btn-submit:hover {
             background-color: var(--color-ink);
         }
-
         .btn-submit:active {
             transform: scale(0.98);
         }
-
         /* 2. Content Band (Paper Cream) - 아카이브 리스트 배치 */
         .band-archive {
             background-color: var(--color-paper-cream);
         }
-
         /* ==========================================================================
            [PRD 2, 3 - 아카이브 리스트 (Elevated Feature Card 구조 - 2컬럼 레이아웃)]
            ========================================================================== */
+        /* ============================================================
+           Archive Band (PRD 2, 3)
+           ============================================================ */
+        .band-archive { background: var(--color-paper-cream); }
         .archive-card {
             background-color: var(--color-pure-white);
             border-radius: var(--radius-largecards); /* 48px 대형 라운드 카드 */
@@ -304,15 +349,17 @@
             color: var(--color-ink);
             max-width: 1100px;
             margin: 0 auto;
+            background: var(--color-pure-white); border-radius: var(--r-lg);
+            padding: var(--sp-52); box-shadow: var(--shadow-2);
+            max-width: 1100px; margin: 0 auto;
         }
-
         @media (max-width: 600px) {
             .archive-card {
                 padding: var(--spacing-24);
                 border-radius: var(--radius-cards);
             }
         }
-
+        @media (max-width: 600px) { .archive-card { padding: var(--sp-24); border-radius: var(--r-md); } }
         .section-title {
             font-family: var(--font-heldane-display);
             font-size: var(--text-heading);
@@ -322,23 +369,39 @@
             margin-bottom: var(--spacing-32);
             border-bottom: 2px solid var(--color-fable-forest);
             padding-bottom: var(--spacing-12);
+            font-family: var(--font-heldane); font-size: var(--text-heading);
+            line-height: var(--leading-heading); font-weight: 500; color: var(--color-ink);
+            margin-bottom: var(--sp-32); border-bottom: 2px solid var(--color-fable-forest);
+            padding-bottom: var(--sp-12);
         }
-
+        .archive-body-layout { display: grid; grid-template-columns: 320px 1fr; gap: var(--sp-52); align-items: start; }
+        @media (max-width: 900px) { .archive-body-layout { grid-template-columns: 1fr; gap: var(--sp-40); } }
         /* 2컬럼 레이아웃 (달력 & 리스트) */
         .archive-body-layout {
             display: grid;
             grid-template-columns: 340px 1fr;
             gap: var(--spacing-52);
             align-items: start;
+        /* ============================================================
+           Calendar UI
+           ============================================================ */
+        .calendar-wrapper {
+            background: var(--color-paper-cream); border-radius: var(--r-md);
+            padding: var(--sp-24); border: 1px solid var(--color-fog);
+            position: sticky; top: 20px;
         }
-
         @media (max-width: 900px) {
             .archive-body-layout {
                 grid-template-columns: 1fr;
                 gap: var(--spacing-40);
             }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-16); }
+        .calendar-nav-btn {
+            background: none; border: none; cursor: pointer; font-size: var(--text-body);
+            color: var(--color-graphite); padding: var(--sp-8); border-radius: 50%;
+            transition: background .2s, color .2s; line-height: 1;
         }
-
+        .calendar-nav-btn:hover { background: var(--color-fog); color: var(--color-ink); }
         /* 달력 UI 스타일 */
         .calendar-wrapper {
             background-color: var(--color-paper-cream);
@@ -347,22 +410,37 @@
             border: 1px solid var(--color-fog);
             position: sticky;
             top: 20px;
+        /* [추가 기능] 연/월 피커 버튼 */
+        .calendar-title-btn {
+            font-family: var(--font-heldane); font-size: var(--text-subheading);
+            font-weight: 600; color: var(--color-ink); background: none; border: none;
+            cursor: pointer; padding: var(--sp-4) var(--sp-8); border-radius: var(--r-sm);
+            transition: background .2s; display: flex; align-items: center; gap: 4px;
         }
-
+        .calendar-title-btn:hover { background: var(--color-fog); }
+        .arrow-icon { font-size: 9px; color: var(--color-graphite); margin-top: 2px; }
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: var(--spacing-20);
+        /* [추가 기능] 연/월 피커 드롭다운 */
+        .calendar-picker {
+            display: none; background: var(--color-pure-white);
+            border: 1px solid var(--color-fog); border-radius: var(--r-md);
+            padding: var(--sp-16); margin-bottom: var(--sp-16);
+            box-shadow: var(--shadow); animation: fadeIn .2s ease;
         }
-
         .calendar-header h3 {
             font-family: var(--font-heldane-display);
             font-size: var(--text-subheading);
             font-weight: 600;
             color: var(--color-ink);
+        .calendar-picker.open { display: block; }
+        .picker-year-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: var(--sp-12);
         }
-
         .calendar-nav-btn {
             background: none;
             border: none;
@@ -374,13 +452,29 @@
             border-radius: 50%;
             transition: background-color 0.2s, color 0.2s;
             line-height: 1;
+        .picker-year-label { font-family: var(--font-heldane); font-size: var(--text-body); font-weight: 600; color: var(--color-ink); }
+        .picker-year-nav {
+            background: none; border: none; cursor: pointer; color: var(--color-graphite);
+            font-size: var(--text-body); padding: var(--sp-4) var(--sp-8);
+            border-radius: 50%; transition: background .2s; line-height: 1;
         }
-
         .calendar-nav-btn:hover {
             background-color: var(--color-fog);
             color: var(--color-ink);
+        .picker-year-nav:hover { background: var(--color-fog); }
+        .picker-month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-8); }
+        .picker-month-btn {
+            font-family: var(--font-inter); font-size: var(--text-caption); font-weight: 500;
+            color: var(--color-graphite); background: none; border: 1px solid transparent;
+            border-radius: var(--r-sm); padding: var(--sp-8) var(--sp-4);
+            cursor: pointer; transition: background .2s, color .2s, border-color .2s; text-align: center;
         }
-
+        .picker-month-btn:hover { background: var(--color-paper-cream); color: var(--color-ink); }
+        .picker-month-btn.active {
+            background: var(--color-fable-forest); color: var(--color-pure-white);
+            border-color: var(--color-fable-forest);
+        }
+        /* Calendar grid */
         .calendar-weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -390,15 +484,17 @@
             color: var(--color-graphite);
             margin-bottom: var(--spacing-8);
             letter-spacing: var(--tracking-caption);
+            display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+            font-weight: 600; font-size: var(--text-caption); color: var(--color-graphite);
+            margin-bottom: var(--sp-8);
         }
-
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             row-gap: 6px;
             column-gap: 4px;
         }
-
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 6px; column-gap: 4px; }
         .calendar-day-cell {
             position: relative;
             aspect-ratio: 1;
@@ -412,24 +508,44 @@
             border-radius: 50%;
             transition: background-color 0.2s, color 0.2s;
             user-select: none;
+            position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            font-size: var(--text-body-sm); font-weight: 500; color: var(--color-ink);
+            cursor: pointer; border-radius: 50%; transition: background .2s, color .2s; user-select: none;
         }
-
         .calendar-day-cell:hover {
             background-color: var(--color-fog);
+        .calendar-day-cell:hover { background: var(--color-fog); }
+        .calendar-day-cell.other-month { color: var(--color-fog); cursor: default; }
+        .calendar-day-cell.other-month:hover { background: transparent; }
+        .calendar-day-cell.today { border: 1.5px solid var(--color-fable-forest); }
+        .calendar-day-cell .dot {
+            position: absolute; bottom: 4px; width: 5px; height: 5px;
+            border-radius: 50%; background: var(--color-fable-forest);
         }
-
         .calendar-day-cell.other-month {
             color: var(--color-fog);
             cursor: default;
+        /* ============================================================
+           [추가 기능] 통계 섹션
+           ============================================================ */
+        .stats-wrapper {
+            margin-top: var(--sp-24); padding-top: var(--sp-20);
+            border-top: 1px solid var(--color-fog);
         }
         .calendar-day-cell.other-month:hover {
             background-color: transparent;
+        .stats-title {
+            font-family: var(--font-inter); font-size: var(--text-body-sm); font-weight: 600;
+            color: var(--color-graphite); letter-spacing: 0.06em; text-transform: uppercase;
+            margin-bottom: var(--sp-16);
         }
-
         .calendar-day-cell.today {
             border: 1.5px solid var(--color-fable-forest);
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); margin-bottom: var(--sp-16); }
+        .stat-card {
+            background: var(--color-pure-white); border-radius: var(--r-sm);
+            padding: var(--sp-12); border: 1px solid var(--color-fog); text-align: center;
         }
-
         .calendar-day-cell .dot {
             position: absolute;
             bottom: 4px;
@@ -437,8 +553,10 @@
             height: 5px;
             border-radius: 50%;
             background-color: var(--color-fable-forest);
+        .stat-value {
+            font-family: var(--font-heldane); font-size: var(--text-heading);
+            font-weight: 400; color: var(--color-fable-forest); line-height: 1; margin-bottom: var(--sp-4);
         }
-
         /* ---------------------------------------------------------
            아카이브 리스트 영역
            --------------------------------------------------------- */
@@ -447,15 +565,30 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        .stat-label { font-size: var(--text-caption); color: var(--color-graphite); }
+        .stats-sources-title {
+            font-size: var(--text-caption); font-weight: 600; color: var(--color-graphite);
+            letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: var(--sp-8);
         }
-
         .quote-list {
             display: flex;
             flex-direction: column;
             list-style: none;
+        .stats-source-item {
+            display: flex; align-items: center; gap: var(--sp-8);
+            padding: var(--sp-8) 0; border-bottom: 1px solid var(--color-fog);
         }
-
+        .stats-source-item:last-child { border-bottom: none; }
+        .source-rank { font-family: var(--font-heldane); font-size: var(--text-body-sm); color: var(--color-fable-forest); width: 18px; flex-shrink: 0; }
+        .source-name { font-size: var(--text-body-sm); color: var(--color-ink); font-weight: 500; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .source-count { font-size: var(--text-caption); color: var(--color-graphite); flex-shrink: 0; }
+        .stats-empty { font-size: var(--text-body-sm); color: var(--color-graphite); font-style: italic; text-align: center; padding: var(--sp-12) 0; }
         /* 가독성을 높인 리스트 아이템 구조 - 색상 대비 및 넉넉한 마진 활용 */
+        /* ============================================================
+           Archive List (PRD 2, 3)
+           ============================================================ */
+        .list-container { min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
+        .quote-list { display: flex; flex-direction: column; list-style: none; }
         .quote-item {
             padding: var(--spacing-28) var(--spacing-16);
             border-bottom: 1px solid var(--color-paper-cream);
@@ -465,25 +598,28 @@
             gap: var(--spacing-24);
             transition: background-color 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
             animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: var(--sp-28) var(--sp-16); border-bottom: 1px solid var(--color-paper-cream);
+            display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-24);
+            transition: background .4s ease, border-radius .4s ease;
+            animation: fadeIn .45s cubic-bezier(.16, 1, .3, 1);
         }
-
         .quote-item:last-child {
             border-bottom: none;
         }
-
         /* 달력 클릭 시 매칭되는 아카이브 문장 하이라이트 효과 */
         .quote-item.highlight {
             background-color: rgba(67, 161, 215, 0.18); /* Storybook Sky를 기반으로 한 부드러운 하늘색 강조 */
             border-radius: var(--radius-smallchips);
         }
-
         .quote-content-wrapper {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             gap: var(--spacing-12);
         }
-
+        .quote-item:last-child { border-bottom: none; }
+        .quote-item.highlight { background: rgba(67,161,215,.18); border-radius: var(--r-sm); }
+        .quote-content-wrapper { flex-grow: 1; display: flex; flex-direction: column; gap: var(--sp-12); }
         .quote-text {
             font-family: var(--font-heldane-display);
             font-size: var(--text-subheading);
@@ -491,8 +627,10 @@
             color: var(--color-ink);
             white-space: pre-wrap;
             word-break: break-all;
+            font-family: var(--font-heldane); font-size: var(--text-subheading);
+            line-height: var(--leading-subheading); color: var(--color-ink);
+            white-space: pre-wrap; word-break: break-all;
         }
-
         .quote-meta {
             display: flex;
             align-items: center;
@@ -500,21 +638,21 @@
             font-size: var(--text-body-sm);
             color: var(--color-graphite);
         }
-
         .quote-source {
             font-weight: 500;
         }
-
         .meta-divider {
             color: var(--color-fog);
         }
-
         .quote-date {
             font-size: var(--text-caption);
             letter-spacing: var(--tracking-caption);
         }
-
         /* 텍스트 링크 기반 액션 버튼 (수정/삭제) */
+        .quote-meta { display: flex; align-items: center; gap: var(--sp-8); font-size: var(--text-body-sm); color: var(--color-graphite); }
+        .quote-source { font-weight: 500; }
+        .meta-divider { color: var(--color-fog); }
+        .quote-date { font-size: var(--text-caption); }
         .btn-delete {
             background: none;
             border: none;
@@ -529,14 +667,18 @@
             border-radius: var(--radius-smallchips);
             transition: color 0.2s, background-color 0.2s;
             flex-shrink: 0;
+            background: none; border: none; font-family: var(--font-inter);
+            font-size: var(--text-body-sm); font-weight: 500; color: var(--color-graphite);
+            text-decoration: underline; text-underline-offset: 4px; cursor: pointer;
+            padding: var(--sp-4) var(--sp-8); border-radius: var(--r-sm);
+            transition: color .2s, background .2s; flex-shrink: 0;
         }
-
         .btn-delete:hover {
             color: var(--color-ink);
             background-color: var(--color-paper-cream);
         }
-
         /* 데이터가 없을 때 표시할 빈 상태 */
+        .btn-delete:hover { color: var(--color-ink); background: var(--color-paper-cream); }
         .empty-state {
             text-align: center;
             padding: var(--spacing-52) var(--spacing-20);
@@ -545,8 +687,9 @@
             font-size: var(--text-subheading);
             font-style: italic;
             width: 100%;
+            text-align: center; padding: var(--sp-52) var(--sp-20); color: var(--color-graphite);
+            font-family: var(--font-heldane); font-size: var(--text-subheading); font-style: italic; width: 100%;
         }
-
         /* ---------------------------------------------------------
            [추가 요구사항] 페이지네이션 버튼 디자인
            --------------------------------------------------------- */
@@ -557,7 +700,8 @@
             gap: var(--spacing-8);
             margin-top: var(--spacing-40);
         }
-
+        /* Pagination */
+        .pagination-container { display: flex; justify-content: center; align-items: center; gap: var(--sp-8); margin-top: var(--sp-40); }
         .pagination-btn {
             background-color: var(--color-pure-white);
             border: 1px solid var(--color-fog);
@@ -569,29 +713,34 @@
             border-radius: var(--radius-buttons);
             cursor: pointer;
             transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+            background: var(--color-pure-white); border: 1px solid var(--color-fog);
+            color: var(--color-graphite); font-family: var(--font-inter);
+            font-size: var(--text-body-sm); font-weight: 500;
+            padding: var(--sp-8) var(--sp-16); border-radius: var(--r-pill);
+            cursor: pointer; transition: background .2s, color .2s, border-color .2s;
         }
-
+        .pagination-btn:hover { background: var(--color-paper-cream); color: var(--color-ink); }
+        .pagination-btn.active { background: var(--color-fable-forest); color: #fff; border-color: var(--color-fable-forest); }
+        .pagination-btn:disabled { opacity: .35; cursor: not-allowed; }
         .pagination-btn:hover {
             background-color: var(--color-paper-cream);
             color: var(--color-ink);
         }
-
         .pagination-btn.active {
             background-color: var(--color-fable-forest);
             color: var(--color-pure-white);
             border-color: var(--color-fable-forest);
         }
-
         .pagination-btn:disabled {
             opacity: 0.35;
             cursor: not-allowed;
             background-color: var(--color-pure-white);
             color: var(--color-fog);
         }
-
         /* ---------------------------------------------------------
            [추가 요구사항] 커스텀 수정 모달 스타일
            --------------------------------------------------------- */
+        /* Edit Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -605,8 +754,11 @@
             justify-content: center;
             z-index: 100;
             animation: modalFadeIn 0.3s ease;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(22,16,21,.4); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100; animation: modalFadeIn .3s ease;
         }
-
         .modal-content {
             background-color: var(--color-paper-cream); /* Fable 시그니처 크림 배경 */
             border-radius: var(--radius-largecards);
@@ -617,23 +769,27 @@
             color: var(--color-ink);
             border: 1px solid var(--color-fog);
             animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--color-paper-cream); border-radius: var(--r-lg);
+            padding: var(--sp-40); width: 90%; max-width: 540px;
+            box-shadow: var(--shadow-2); color: var(--color-ink);
+            border: 1px solid var(--color-fog); animation: modalSlideUp .3s cubic-bezier(.16,1,.3,1);
         }
-
         .modal-title {
             font-family: var(--font-heldane-display);
             font-size: var(--text-heading-sm);
             margin-bottom: var(--spacing-24);
             border-bottom: 2px solid var(--color-fable-forest);
             padding-bottom: var(--spacing-8);
+            font-family: var(--font-heldane); font-size: var(--text-heading-sm);
+            margin-bottom: var(--sp-24); border-bottom: 2px solid var(--color-fable-forest); padding-bottom: var(--sp-8);
         }
-
         .modal-btn-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--spacing-16);
             margin-top: var(--spacing-12);
         }
-
+        .modal-btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); margin-top: var(--sp-12); }
         .btn-secondary {
             font-family: var(--font-inter);
             background-color: var(--color-pure-white);
@@ -646,14 +802,18 @@
             cursor: pointer;
             transition: background-color 0.2s, color 0.2s;
             text-align: center;
+            font-family: var(--font-inter); background: var(--color-pure-white); color: var(--color-graphite);
+            border: 1px solid var(--color-fog); padding: var(--sp-16) var(--sp-28);
+            font-size: var(--text-body); font-weight: 500; border-radius: var(--r-pill);
+            cursor: pointer; transition: background .2s, color .2s; text-align: center;
         }
-
+        .btn-secondary:hover { background: var(--color-fog); color: var(--color-ink); }
         .btn-secondary:hover {
             background-color: var(--color-fog);
             color: var(--color-ink);
         }
-
         /* 3. Footer Band (Char) */
+        /* Footer */
         .band-footer {
             background-color: var(--color-char);
             color: rgba(255, 255, 255, 0.4);
@@ -661,8 +821,10 @@
             text-align: center;
             font-size: var(--text-caption);
             letter-spacing: 0.05em;
+            background: var(--color-char); color: rgba(255,255,255,.4);
+            padding: var(--sp-52) 0; text-align: center; font-size: var(--text-caption); letter-spacing: .05em;
         }
-
+        .footer-brand { font-family: var(--font-heldane); font-size: var(--text-body); color: #fff; margin-bottom: var(--sp-8); font-weight: 400; }
         .footer-brand {
             font-family: var(--font-heldane-display);
             font-size: var(--text-body);
@@ -670,7 +832,6 @@
             margin-bottom: var(--spacing-8);
             font-weight: 400;
         }
-
         /* 애니메이션 키프레임들 */
         @keyframes fadeIn {
             from {
@@ -682,28 +843,31 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes modalFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         @keyframes modalSlideUp {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalSlideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
-
     <!-- 미니멀 내비게이션 바 -->
     <nav class="navbar">
         <a href="#" class="navbar-brand">Daily Quote Archive</a>
     </nav>
-
     <!-- ==========================================================================
          [Hero Band (Fable Forest) - 브랜드 메시지 및 입력 폼]
          ========================================================================== -->
+    <!-- ============================================================
+         Hero Band — 입력 폼 (PRD 1)
+         ============================================================ -->
     <section class="section-band band-hero">
         <div class="section-container hero-grid">
             
@@ -715,7 +879,6 @@
                     작은 문장과 영감의 조각들을 모아 나만의 아카이브를 만들어보세요.
                 </p>
             </div>
-
             <!-- 오른쪽 컬럼: 문장 입력 폼 (PRD 1 - 입력 기능) -->
             <div class="input-card">
                 <form id="quote-form" class="input-form" novalidate>
@@ -726,8 +889,8 @@
                             placeholder="마음에 와닿은 문장을 적어보세요..." 
                             required
                         ></textarea>
+                        <textarea id="quote-input" placeholder="마음에 와닿은 문장을 적어보세요..." required></textarea>
                     </div>
-
                     <div class="form-row">
                         <!-- [수정 요구사항] '출처 및 저자'에서 '출처'로 레이블 변경 및 플레이스홀더를 《데미안》으로 수정 -->
                         <div class="form-group">
@@ -738,6 +901,7 @@
                                 placeholder="예시: 《데미안》" 
                                 required
                             >
+                            <input type="text" id="source-input" placeholder="예시: 《데미안》" required>
                         </div>
                         <div class="form-group">
                             <label for="date-input">기록 날짜</label>
@@ -746,19 +910,20 @@
                                 id="date-input" 
                                 required
                             >
+                            <input type="date" id="date-input" required>
                         </div>
                     </div>
-
                     <button type="submit" class="btn-submit">문장 저장하기</button>
                 </form>
             </div>
-
         </div>
     </section>
-
     <!-- ==========================================================================
          [Content Band (Paper Cream) - 아카이브 리스트 및 달력]
          ========================================================================== -->
+    <!-- ============================================================
+         Archive Band — 달력 + 리스트 (PRD 2, 3)
+         ============================================================ -->
     <section class="section-band band-archive">
         <div class="section-container">
             
@@ -770,13 +935,29 @@
                 <div class="archive-body-layout">
                     
                     <!-- 왼쪽 영역: 달력 컴포넌트 -->
+                    <!-- 달력 & 통계 영역 -->
                     <div class="calendar-wrapper">
+                        <!-- [추가 기능] 연/월 클릭 피커 헤더 -->
                         <div class="calendar-header">
                             <button id="prev-month" class="calendar-nav-btn" title="이전 달">&lt;</button>
                             <h3 id="calendar-title">2026. 06</h3>
+                            <button id="calendar-title-btn" class="calendar-title-btn" title="연/월 선택">
+                                <span id="calendar-title">2026. 06</span>
+                                <span class="arrow-icon">▼</span>
+                            </button>
                             <button id="next-month" class="calendar-nav-btn" title="다음 달">&gt;</button>
                         </div>
                         
+                        <!-- [추가 기능] 연/월 피커 드롭다운 -->
+                        <div id="calendar-picker" class="calendar-picker">
+                            <div class="picker-year-row">
+                                <button id="picker-prev-year" class="picker-year-nav">&lt;</button>
+                                <span id="picker-year-label" class="picker-year-label">2026년</span>
+                                <button id="picker-next-year" class="picker-year-nav">&gt;</button>
+                            </div>
+                            <div id="picker-month-grid" class="picker-month-grid"></div>
+                        </div>
+                        <!-- 달력 요일 & 날짜 그리드 -->
                         <div class="calendar-weekdays">
                             <div>일</div>
                             <div>월</div>
@@ -785,33 +966,54 @@
                             <div>목</div>
                             <div>금</div>
                             <div>토</div>
+                            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
                         </div>
                         
                         <div id="calendar-grid" class="calendar-grid">
                             <!-- JS를 통해 달력의 날짜 칸이 동적 생성됩니다. -->
+                        <div id="calendar-grid" class="calendar-grid"></div>
+                        <!-- [추가 기능] 통계 섹션 -->
+                        <div class="stats-wrapper">
+                            <div class="stats-title">통계</div>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div id="stat-total" class="stat-value">0</div>
+                                    <div class="stat-label">총 문장 수</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div id="stat-days" class="stat-value">0</div>
+                                    <div class="stat-label">기록한 날 수</div>
+                                </div>
+                                <div class="stat-card" style="grid-column: 1 / -1;">
+                                    <div id="stat-month" class="stat-value">0</div>
+                                    <div id="stat-month-label" class="stat-label">이번 달 기록</div>
+                                </div>
+                            </div>
+                            <div class="stats-sources-title">자주 인용한 출처 Top 3</div>
+                            <div id="stats-sources-list"></div>
                         </div>
                     </div>
-
                     <!-- 오른쪽 영역: 아카이브 목록 (PRD 2, 3 - 아카이브 리스트 목록 영역) -->
+                    <!-- 아카이브 리스트 영역 (PRD 2, 3) -->
                     <div class="list-container">
                         <ul id="quote-list" class="quote-list">
                             <!-- JS에 의해 동적으로 데이터가 생성되는 부분 -->
                         </ul>
                         
                         <!-- [추가 요구사항] 페이지네이션 제어 컨트롤 박스 -->
+                        <ul id="quote-list" class="quote-list"></ul>
                         <div id="pagination-controls" class="pagination-container"></div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
-
     <!-- ==========================================================================
          [추가 요구사항] 커스텀 수정 모달 팝업
          ========================================================================== -->
     <div id="edit-modal" class="modal-overlay" style="display: none;">
+    <!-- 수정 모달 팝업 -->
+    <div id="edit-modal" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <h3 class="modal-title">문장 수정하기</h3>
             <form id="edit-form" class="input-form" novalidate>
@@ -836,24 +1038,27 @@
                 <div class="modal-btn-row">
                     <button type="button" id="btn-edit-cancel" class="btn-secondary">취소</button>
                     <button type="submit" class="btn-submit" style="margin-top: 0;">수정 완료</button>
+                    <button type="submit" class="btn-submit" style="margin-top:0;">수정 완료</button>
                 </div>
             </form>
         </div>
     </div>
-
     <!-- ==========================================================================
          [Footer Band (Char) - 터미널 푸터 영역]
          ========================================================================== -->
+    <!-- Footer -->
     <footer class="section-band band-footer">
         <div class="section-container">
             <div class="footer-brand">Daily Quote Archive</div>
             <p>a literary reading nook with cream paper and ink. &copy; 2026</p>
         </div>
     </footer>
-
     <!-- ==========================================================================
          [JavaScript Logic - 데이터 관리, 페이지네이션, 수정 모달 및 달력 연동 핵심 로직]
          ========================================================================== -->
+    <!-- ============================================================
+         JavaScript — 전체 로직
+         ============================================================ -->
     <script>
         // DOM 캐싱
         const quoteForm = document.getElementById('quote-form');
@@ -862,30 +1067,59 @@
         const dateInput = document.getElementById('date-input');
         const quoteListContainer = document.getElementById('quote-list');
         
+        // ── DOM 캐싱 ──────────────────────────────────────────────
+        const quoteForm     = document.getElementById('quote-form');
+        const quoteInput    = document.getElementById('quote-input');
+        const sourceInput   = document.getElementById('source-input');
+        const dateInput     = document.getElementById('date-input');
+        const quoteList     = document.getElementById('quote-list');
         const calendarTitle = document.getElementById('calendar-title');
         const calendarGrid = document.getElementById('calendar-grid');
         const prevMonthBtn = document.getElementById('prev-month');
         const nextMonthBtn = document.getElementById('next-month');
-
         // 수정 모달 관련 캐싱
         const editModal = document.getElementById('edit-modal');
         const editForm = document.getElementById('edit-form');
         const editIdInput = document.getElementById('edit-id');
+        const calendarGrid  = document.getElementById('calendar-grid');
+        const prevMonthBtn  = document.getElementById('prev-month');
+        const nextMonthBtn  = document.getElementById('next-month');
+        // 피커
+        const calendarTitleBtn = document.getElementById('calendar-title-btn');
+        const calendarPicker   = document.getElementById('calendar-picker');
+        const pickerPrevYear   = document.getElementById('picker-prev-year');
+        const pickerNextYear   = document.getElementById('picker-next-year');
+        const pickerYearLabel  = document.getElementById('picker-year-label');
+        const pickerMonthGrid  = document.getElementById('picker-month-grid');
+        // 수정 모달
+        const editModal      = document.getElementById('edit-modal');
+        const editForm       = document.getElementById('edit-form');
+        const editIdInput    = document.getElementById('edit-id');
         const editQuoteInput = document.getElementById('edit-quote-input');
         const editSourceInput = document.getElementById('edit-source-input');
         const editDateInput = document.getElementById('edit-date-input');
         const btnEditCancel = document.getElementById('btn-edit-cancel');
-
+        const editSourceInput= document.getElementById('edit-source-input');
+        const editDateInput  = document.getElementById('edit-date-input');
+        const btnEditCancel  = document.getElementById('btn-edit-cancel');
         const STORAGE_KEY = 'fable_quote_archive_data';
-
+        // ── 상수 & 상태 ───────────────────────────────────────────
+        const STORAGE_KEY  = 'fable_quote_archive_data';
+        const ITEMS_PER_PAGE = 5;
+        const MONTH_NAMES  = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+        const RANK_MARKS   = ['①','②','③'];
         // 페이지네이션 및 달력 상태 관리 변수
         let currentPage = 1;
         const itemsPerPage = 5; // [추가 요구사항] 문장 리스트는 5개씩만 표기
         
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth(); // 0-indexed
-
+        let currentPage  = 1;
+        let currentYear  = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();  // 0-indexed
+        let pickerYear   = currentYear;
         // 앱 초기화
+        // ── 초기화 ────────────────────────────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
             setTodayDate();
             renderApp();
@@ -893,45 +1127,72 @@
             // 달력 네비게이션 이벤트 리스너
             prevMonthBtn.addEventListener('click', () => changeMonth(-1));
             nextMonthBtn.addEventListener('click', () => changeMonth(1));
-
+            btnEditCancel.addEventListener('click', closeEditModal);
             // 수정 모달 닫기 바인딩
             btnEditCancel.addEventListener('click', closeEditModal);
+            // [추가 기능] 연/월 피커
+            calendarTitleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                calendarPicker.classList.contains('open') ? closePicker() : openPicker();
+            });
+            document.addEventListener('click', (e) => {
+                if (!calendarPicker.contains(e.target) && !calendarTitleBtn.contains(e.target)) {
+                    closePicker();
+                }
+            });
+            pickerPrevYear.addEventListener('click', (e) => { e.stopPropagation(); pickerYear--; renderPicker(); });
+            pickerNextYear.addEventListener('click', (e) => { e.stopPropagation(); pickerYear++; renderPicker(); });
         });
-
         // 오늘 날짜 세팅
+        // ── 유틸 ─────────────────────────────────────────────────
         function setTodayDate() {
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
             dateInput.value = `${yyyy}-${mm}-${dd}`;
+            const t = new Date();
+            dateInput.value = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
         }
-
         // [데이터 보존 기능 - LocalStorage 읽기]
         function getSavedQuotes() {
             const data = localStorage.getItem(STORAGE_KEY);
             return data ? JSON.parse(data) : [];
+            const d = localStorage.getItem(STORAGE_KEY);
+            return d ? JSON.parse(d) : [];
         }
-
         // [데이터 보존 기능 - LocalStorage 쓰기]
         function saveQuotes(quotes) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(quotes));
+        function saveQuotes(q) { localStorage.setItem(STORAGE_KEY, JSON.stringify(q)); }
+        function escapeHTML(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                      .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
         }
-
         // 앱 데이터 갱신 시 달력과 리스트를 함께 리렌더링하는 통합 관리 함수
         function renderApp() {
             renderQuotes();
             renderCalendar();
+        function sortedQuotesList() {
+            return [...getSavedQuotes()].sort((a, b) => {
+                const da = new Date(a.date).getTime(), db = new Date(b.date).getTime();
+                return da !== db ? da - db : a.createdAt - b.createdAt;
+            });
         }
-
         // [PRD 1 - 입력 기능 구현]
+        // ── 앱 통합 렌더 ─────────────────────────────────────────
+        function renderApp() { renderQuotes(); renderCalendar(); }
+        // ── PRD 1: 입력 ──────────────────────────────────────────
         quoteForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const text = quoteInput.value.trim();
+            const text   = quoteInput.value.trim();
             const source = sourceInput.value.trim();
             const date = dateInput.value;
-
+            const date   = dateInput.value;
+            if (!text)   { alert('문장을 입력해 주세요.'); quoteInput.focus(); return; }
+            if (!source) { alert('출처를 입력해 주세요.'); sourceInput.focus(); return; }
+            if (!date)   { alert('기록 날짜를 지정해 주세요.'); dateInput.focus(); return; }
             if (!text) {
                 alert('문장을 입력해 주세요.');
                 quoteInput.focus();
@@ -947,7 +1208,6 @@
                 dateInput.focus();
                 return;
             }
-
             const newQuote = {
                 id: Date.now().toString(),
                 text: text,
@@ -955,7 +1215,6 @@
                 date: date,
                 createdAt: new Date().getTime()
             };
-
             const currentQuotes = getSavedQuotes();
             currentQuotes.push(newQuote);
             saveQuotes(currentQuotes);
@@ -963,21 +1222,26 @@
             // 입력 후, 새로운 아이템이 맨 마지막에 위치하므로 맨 뒤 페이지로 자동 이동 설정
             const totalItems = currentQuotes.length;
             currentPage = Math.ceil(totalItems / itemsPerPage);
-
+            const quotes = getSavedQuotes();
+            quotes.push({ id: Date.now().toString(), text, source, date, createdAt: Date.now() });
+            saveQuotes(quotes);
+            currentPage = Math.ceil(quotes.length / ITEMS_PER_PAGE);
             renderApp();
-
             // 입력창 초기화
             quoteInput.value = '';
             sourceInput.value = '';
             setTodayDate();
             quoteInput.focus();
+            quoteInput.value = ''; sourceInput.value = '';
+            setTodayDate(); quoteInput.focus();
         });
-
         // [PRD 2 - 열람 기능 구현 (5개씩 슬라이싱, 페이지네이션 렌더링, 오름차순 정렬 및 빈 상태)]
+        // ── PRD 2: 열람 (오름차순 + 페이지네이션) ─────────────────
         function renderQuotes() {
             quoteListContainer.innerHTML = '';
             const quotes = getSavedQuotes();
-
+            quoteList.innerHTML = '';
+            const sorted = sortedQuotesList();
             // 아카이브에 영감이 없을 때 요구 메시지 출력
             if (quotes.length === 0) {
                 const emptyDiv = document.createElement('div');
@@ -986,10 +1250,14 @@
                 quoteListContainer.appendChild(emptyDiv);
                 
                 // 페이지네이션 컨트롤 초기화
+            if (sorted.length === 0) {
+                const el = document.createElement('div');
+                el.className = 'empty-state';
+                el.textContent = '첫 번째 영감을 남겨보세요';
+                quoteList.appendChild(el);
                 document.getElementById('pagination-controls').innerHTML = '';
                 return;
             }
-
             // 날짜 기준 오름차순 정렬 (앞선 날짜가 위로, 늦은 날짜가 아래로)
             const sortedQuotes = [...quotes].sort((a, b) => {
                 const dateA = new Date(a.date).getTime();
@@ -1000,33 +1268,37 @@
                 }
                 return a.createdAt - b.createdAt;
             });
-
+            const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages;
+            const slice = sorted.slice((currentPage-1)*ITEMS_PER_PAGE, currentPage*ITEMS_PER_PAGE);
             // [추가 요구사항] 5개씩 나누기 위한 페이지네이션 데이터 연산
             const totalItems = sortedQuotes.length;
             const totalPages = Math.ceil(totalItems / itemsPerPage);
-
             // 현재 페이지의 유효범위 안전 마진 확보
             if (currentPage > totalPages) {
                 currentPage = totalPages || 1;
             }
-
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedQuotes = sortedQuotes.slice(startIndex, endIndex);
-
             // 리스트 엘리먼트 생성 및 주입
             paginatedQuotes.forEach(quote => {
+            slice.forEach(q => {
                 const li = document.createElement('li');
                 li.className = 'quote-item';
                 li.setAttribute('data-date', quote.date);
                 
+                li.setAttribute('data-date', q.date);
                 li.innerHTML = `
                     <div class="quote-content-wrapper">
                         <div class="quote-text">${escapeHTML(quote.text)}</div>
+                        <div class="quote-text">${escapeHTML(q.text)}</div>
                         <div class="quote-meta">
                             <span class="quote-source">— ${escapeHTML(quote.source)}</span>
+                            <span class="quote-source">— ${escapeHTML(q.source)}</span>
                             <span class="meta-divider">•</span>
                             <span class="quote-date">${quote.date}</span>
+                            <span class="quote-date">${q.date}</span>
                         </div>
                     </div>
                     <div style="display: flex; gap: var(--spacing-8); align-items: center; flex-shrink: 0;">
@@ -1038,19 +1310,28 @@
                     </div>
                 `;
                 quoteListContainer.appendChild(li);
+                    <div style="display:flex;gap:var(--sp-8);align-items:center;flex-shrink:0;">
+                        <button class="btn-delete" onclick="openEditModal('${q.id}')">수정</button>
+                        <span class="meta-divider">|</span>
+                        <button class="btn-delete" onclick="deleteQuote('${q.id}')">삭제</button>
+                    </div>`;
+                quoteList.appendChild(li);
             });
-
             // 페이지네이션 컨트롤 렌더링 호출
             renderPaginationControls(totalPages);
         }
-
         // [추가 요구사항] 페이지네이션 제어 컨트롤 박스 렌더링
         function renderPaginationControls(totalPages) {
             const controlsContainer = document.getElementById('pagination-controls');
             controlsContainer.innerHTML = '';
-
+            const container = document.getElementById('pagination-controls');
+            container.innerHTML = '';
+            if (totalPages <= 1) return;
             if (totalPages <= 1) return; // 1페이지 이하면 페이지네이션 표시 안 함
-
+            const prev = document.createElement('button');
+            prev.className = 'pagination-btn'; prev.textContent = '이전'; prev.disabled = currentPage === 1;
+            prev.addEventListener('click', () => { currentPage--; renderQuotes(); });
+            container.appendChild(prev);
             // [이전] 버튼
             const prevBtn = document.createElement('button');
             prevBtn.className = 'pagination-btn';
@@ -1061,7 +1342,6 @@
                 renderQuotes();
             });
             controlsContainer.appendChild(prevBtn);
-
             // 페이지 번호 버튼들
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('button');
@@ -1072,8 +1352,12 @@
                     renderQuotes();
                 });
                 controlsContainer.appendChild(pageBtn);
+                const btn = document.createElement('button');
+                btn.className = `pagination-btn${i === currentPage ? ' active' : ''}`;
+                btn.textContent = i;
+                btn.addEventListener('click', () => { currentPage = i; renderQuotes(); });
+                container.appendChild(btn);
             }
-
             // [다음] 버튼
             const nextBtn = document.createElement('button');
             nextBtn.className = 'pagination-btn';
@@ -1084,9 +1368,13 @@
                 renderQuotes();
             });
             controlsContainer.appendChild(nextBtn);
+            const next = document.createElement('button');
+            next.className = 'pagination-btn'; next.textContent = '다음'; next.disabled = currentPage === totalPages;
+            next.addEventListener('click', () => { currentPage++; renderQuotes(); });
+            container.appendChild(next);
         }
-
         // [PRD 3 - 관리 기능: 팝업 확인 후 데이터 삭제]
+        // ── PRD 3: 삭제 ──────────────────────────────────────────
         function deleteQuote(id) {
             const isConfirmed = confirm('정말 삭제하시겠습니까?');
             if (isConfirmed) {
@@ -1102,13 +1390,18 @@
                 
                 renderApp();
             }
+            if (!confirm('정말 삭제하시겠습니까?')) return;
+            let quotes = getSavedQuotes().filter(q => q.id !== id);
+            saveQuotes(quotes);
+            const totalPages = Math.ceil(quotes.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+            renderApp();
         }
-
         // [추가 요구사항] 수정 모달 제어 로직
+        // ── 수정 모달 ─────────────────────────────────────────────
         function openEditModal(id) {
             const quotes = getSavedQuotes();
             const quoteToEdit = quotes.find(quote => quote.id === id);
-
             if (quoteToEdit) {
                 editIdInput.value = quoteToEdit.id;
                 editQuoteInput.value = quoteToEdit.text;
@@ -1117,21 +1410,26 @@
                 editModal.style.display = 'flex';
                 editQuoteInput.focus();
             }
+            const q = getSavedQuotes().find(q => q.id === id);
+            if (!q) return;
+            editIdInput.value     = q.id;
+            editQuoteInput.value  = q.text;
+            editSourceInput.value = q.source;
+            editDateInput.value   = q.date;
+            editModal.style.display = 'flex';
+            editQuoteInput.focus();
         }
-
+        function closeEditModal() { editModal.style.display = 'none'; }
         function closeEditModal() {
             editModal.style.display = 'none';
         }
-
         // 수정 폼 제출 핸들러
         editForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const id = editIdInput.value;
             const text = editQuoteInput.value.trim();
             const source = editSourceInput.value.trim();
             const date = editDateInput.value;
-
             if (!text) {
                 alert('문장을 입력해 주세요.');
                 editQuoteInput.focus();
@@ -1147,22 +1445,27 @@
                 editDateInput.focus();
                 return;
             }
-
+            const id = editIdInput.value, text = editQuoteInput.value.trim(),
+                  source = editSourceInput.value.trim(), date = editDateInput.value;
+            if (!text)   { alert('문장을 입력해 주세요.'); return; }
+            if (!source) { alert('출처를 입력해 주세요.'); return; }
+            if (!date)   { alert('기록 날짜를 지정해 주세요.'); return; }
             let quotes = getSavedQuotes();
             const index = quotes.findIndex(quote => quote.id === id);
-
             if (index !== -1) {
                 quotes[index].text = text;
                 quotes[index].source = source;
                 quotes[index].date = date;
-
                 saveQuotes(quotes);
                 renderApp();
                 closeEditModal();
             }
+            const idx = quotes.findIndex(q => q.id === id);
+            if (idx !== -1) { quotes[idx] = { ...quotes[idx], text, source, date }; saveQuotes(quotes); }
+            renderApp(); closeEditModal();
         });
-
         // 동적 달력 생성 및 렌더링 로직
+        // ── 달력 렌더링 ───────────────────────────────────────────
         function renderCalendar() {
             calendarGrid.innerHTML = '';
             
@@ -1177,28 +1480,46 @@
             
             const today = new Date();
             const isCurrentMonthToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
-
+            calendarTitle.textContent = `${currentYear}. ${String(currentMonth+1).padStart(2,'0')}`;
             // 1. 이전 달 날짜 채우기
             for (let i = firstDayIndex; i > 0; i--) {
                 const dayDiv = document.createElement('div');
                 dayDiv.className = 'calendar-day-cell other-month';
                 dayDiv.textContent = prevLastDay - i + 1;
                 calendarGrid.appendChild(dayDiv);
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const lastDay  = new Date(currentYear, currentMonth+1, 0).getDate();
+            const prevLast = new Date(currentYear, currentMonth, 0).getDate();
+            const quotes   = getSavedQuotes();
+            const today    = new Date();
+            const isSameMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+            // 이전 달
+            for (let i = firstDay; i > 0; i--) {
+                const d = document.createElement('div');
+                d.className = 'calendar-day-cell other-month';
+                d.textContent = prevLast - i + 1;
+                calendarGrid.appendChild(d);
             }
-
             // 2. 이번 달 날짜 그리기
+            // 이번 달
             for (let day = 1; day <= lastDay; day++) {
                 const dayDiv = document.createElement('div');
                 dayDiv.className = 'calendar-day-cell';
                 dayDiv.textContent = day;
-
                 const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 dayDiv.setAttribute('data-cal-date', dateStr);
-
                 if (isCurrentMonthToday && today.getDate() === day) {
                     dayDiv.classList.add('today');
+                const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                const d = document.createElement('div');
+                d.className = 'calendar-day-cell';
+                d.textContent = day;
+                d.setAttribute('data-cal-date', dateStr);
+                if (isSameMonth && today.getDate() === day) d.classList.add('today');
+                if (quotes.some(q => q.date === dateStr)) {
+                    const dot = document.createElement('div'); dot.className = 'dot';
+                    d.appendChild(dot);
                 }
-
                 // 기록된 문장이 있으면 동그라미 점 추가
                 const hasQuote = quotes.some(quote => quote.date === dateStr);
                 if (hasQuote) {
@@ -1206,15 +1527,21 @@
                     dot.className = 'dot';
                     dayDiv.appendChild(dot);
                 }
-
                 // 날짜 클릭 이벤트 바인딩
                 dayDiv.addEventListener('click', () => {
                     handleDateClick(dateStr);
                 });
-
                 calendarGrid.appendChild(dayDiv);
+                d.addEventListener('click', () => handleDateClick(dateStr));
+                calendarGrid.appendChild(d);
             }
-
+            // 다음 달
+            const remain = (firstDay + lastDay) % 7 === 0 ? 0 : 7 - ((firstDay + lastDay) % 7);
+            for (let i = 1; i <= remain; i++) {
+                const d = document.createElement('div');
+                d.className = 'calendar-day-cell other-month'; d.textContent = i;
+                calendarGrid.appendChild(d);
+            }
             // 3. 다음 달 날짜 채우기
             const totalCells = firstDayIndex + lastDay;
             const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
@@ -1224,8 +1551,8 @@
                 dayDiv.textContent = i;
                 calendarGrid.appendChild(dayDiv);
             }
+            renderStats();
         }
-
         // 달력 월 변경 기능
         function changeMonth(direction) {
             currentMonth += direction;
@@ -1236,9 +1563,12 @@
                 currentMonth = 0;
                 currentYear += 1;
             }
+        function changeMonth(dir) {
+            currentMonth += dir;
+            if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+            if (currentMonth > 11) { currentMonth = 0;  currentYear++; }
             renderCalendar();
         }
-
         // [달력 날짜 클릭 시 아카이브 페이지네이션 탐색 및 연동 인터랙션]
         function handleDateClick(dateStr) {
             const quotes = getSavedQuotes();
@@ -1249,11 +1579,34 @@
                 const dateB = new Date(b.date).getTime();
                 if (dateA !== dateB) return dateA - dateB;
                 return a.createdAt - b.createdAt;
+        // ── [추가 기능] 연/월 피커 ────────────────────────────────
+        function openPicker() {
+            pickerYear = currentYear;
+            renderPicker();
+            calendarPicker.classList.add('open');
+        }
+        function closePicker() { calendarPicker.classList.remove('open'); }
+        function renderPicker() {
+            pickerYearLabel.textContent = `${pickerYear}년`;
+            pickerMonthGrid.innerHTML = '';
+            MONTH_NAMES.forEach((name, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'picker-month-btn';
+                btn.textContent = name;
+                if (pickerYear === currentYear && idx === currentMonth) btn.classList.add('active');
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentYear = pickerYear; currentMonth = idx;
+                    closePicker(); renderCalendar();
+                });
+                pickerMonthGrid.appendChild(btn);
             });
-
+        }
             // 해당 날짜를 가진 첫 번째 아이템의 전체 정렬 리스트 상 인덱스 검색
             const targetIndex = sortedQuotes.findIndex(quote => quote.date === dateStr);
-
+        // ── [추가 기능] 통계 렌더링 ───────────────────────────────
+        function renderStats() {
+            const quotes = getSavedQuotes();
             if (targetIndex !== -1) {
                 // 해당 아이템이 속한 페이지 번호 연산 (1-indexed)
                 const targetPage = Math.ceil((targetIndex + 1) / itemsPerPage);
@@ -1261,7 +1614,8 @@
                 // 페이지를 전환하고 렌더링
                 currentPage = targetPage;
                 renderQuotes();
-
+            // 총 문장 수
+            document.getElementById('stat-total').textContent = quotes.length;
                 // 렌더링 갱신 시간차를 극복하기 위해 비동기 지연 실행
                 setTimeout(() => {
                     const targetItems = document.querySelectorAll(`.quote-item[data-date="${dateStr}"]`);
@@ -1281,11 +1635,36 @@
                         });
                     }
                 }, 50);
+            // 기록한 날 수
+            document.getElementById('stat-days').textContent = new Set(quotes.map(q => q.date)).size;
+            // 현재 달력 연/월 기준 기록 수
+            const monthStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}`;
+            const monthCount = quotes.filter(q => q.date.startsWith(monthStr)).length;
+            document.getElementById('stat-month').textContent = monthCount;
+            document.getElementById('stat-month-label').textContent = `${currentYear}년 ${currentMonth+1}월 기록`;
+            // Top 3 출처
+            const sourceMap = {};
+            quotes.forEach(q => { const s = q.source.trim(); if (s) sourceMap[s] = (sourceMap[s]||0)+1; });
+            const top3 = Object.entries(sourceMap).sort((a,b) => b[1]-a[1]).slice(0,3);
+            const listEl = document.getElementById('stats-sources-list');
+            listEl.innerHTML = '';
+            if (top3.length === 0) {
+                const el = document.createElement('div');
+                el.className = 'stats-empty'; el.textContent = '아직 기록된 출처가 없어요';
+                listEl.appendChild(el);
             } else {
                 alert(`${dateStr}에 기록된 문장이 없습니다. 새로운 문장을 추가해 보세요!`);
+                top3.forEach(([source, count], i) => {
+                    const item = document.createElement('div');
+                    item.className = 'stats-source-item';
+                    item.innerHTML = `
+                        <span class="source-rank">${RANK_MARKS[i]}</span>
+                        <span class="source-name">${escapeHTML(source)}</span>
+                        <span class="source-count">${count}회</span>`;
+                    listEl.appendChild(item);
+                });
             }
         }
-
         // XSS 취약점 대응 이스케이프 유틸리티
         function escapeHTML(str) {
             return str
@@ -1294,6 +1673,25 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
+        // ── 달력 날짜 클릭 → 리스트 스크롤 & 하이라이트 ──────────
+        function handleDateClick(dateStr) {
+            const sorted = sortedQuotesList();
+            const idx = sorted.findIndex(q => q.date === dateStr);
+            if (idx === -1) { alert(`${dateStr}에 기록된 문장이 없습니다.`); return; }
+            currentPage = Math.ceil((idx+1) / ITEMS_PER_PAGE);
+            renderQuotes();
+            setTimeout(() => {
+                const targets = document.querySelectorAll(`.quote-item[data-date="${dateStr}"]`);
+                if (targets.length > 0) {
+                    targets[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targets.forEach(el => {
+                        el.classList.remove('highlight');
+                        void el.offsetWidth;
+                        el.classList.add('highlight');
+                        setTimeout(() => el.classList.remove('highlight'), 2000);
+                    });
+                }
+            }, 50);
         }
     </script>
 </body>
