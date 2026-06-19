@@ -1,3 +1,30 @@
+Read URL: https://rxokj.github.io/Antigravity_study/
+Viewed content.md:1-308
+
+이유를 정확하게 알아냈습니다! 
+
+공유해 주신 사이트의 내부 소스코드를 분석해 보니, 깃허브에 코드를 붙여넣으실 때 **전체 코드가 중간에 뚝 끊긴 채로(잘린 상태로) 업로드**되어 있습니다. 
+(HTML 파일의 뒷부분과 필수적인 JavaScript 제어 로직이 전부 누락되어 있어서 브라우저가 화면을 그리지 못하고 하얗게만 뜬 것입니다.)
+
+이 문제를 해결하기 위해, 아래의 전체 코드를 다시 안전하게 깃허브에 덮어씌워 주세요.
+
+---
+
+### 🛠️ 하얀 화면 해결 단계
+
+1. [rxokj/Antigravity_study 깃허브 페이지](https://github.com/rxokj/Antigravity_study)에 접속합니다.
+2. 파일 목록에서 **`index.html`**을 클릭합니다.
+3. 우측 상단의 **연필 모양 아이콘(Edit this file)**을 눌러 편집 모드로 들어갑니다.
+4. 기존에 적혀있는 코드를 **전부 지웁니다 (Ctrl + A 누르고 Delete)**.
+5. 아래의 **[전체 소스코드]** 상자 우측 상단의 복사 버튼을 눌러 코드를 통째로 복사한 뒤, 빈 편집창에 **붙여넣기(Ctrl + V)** 합니다.
+6. 우측 상단의 초록색 **`Commit changes...`** ➡️ **`Commit changes`**를 눌러 저장합니다.
+7. 약 1분 후 배포 사이트([https://rxokj.github.io/Antigravity_study/](https://rxokj.github.io/Antigravity_study/))로 접속하여 새로고침해 봅니다.
+
+---
+
+### 📄 [전체 소스코드] (복사해서 붙여넣으실 코드)
+
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -547,9 +574,7 @@
             width: 100%;
         }
 
-        /* ---------------------------------------------------------
-           [추가 요구사항] 페이지네이션 버튼 디자인
-           --------------------------------------------------------- */
+        /* 페이지네이션 버튼 디자인 */
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -589,9 +614,7 @@
             color: var(--color-fog);
         }
 
-        /* ---------------------------------------------------------
-           [추가 요구사항] 커스텀 수정 모달 스타일
-           --------------------------------------------------------- */
+        /* 커스텀 수정 모달 스타일 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -729,7 +752,6 @@
                     </div>
 
                     <div class="form-row">
-                        <!-- [수정 요구사항] '출처 및 저자'에서 '출처'로 레이블 변경 및 플레이스홀더를 《데미안》으로 수정 -->
                         <div class="form-group">
                             <label for="source-input">출처</label>
                             <input 
@@ -798,7 +820,7 @@
                             <!-- JS에 의해 동적으로 데이터가 생성되는 부분 -->
                         </ul>
                         
-                        <!-- [추가 요구사항] 페이지네이션 제어 컨트롤 박스 -->
+                        <!-- 페이지네이션 제어 컨트롤 박스 -->
                         <div id="pagination-controls" class="pagination-container"></div>
                     </div>
 
@@ -880,7 +902,7 @@
 
         // 페이지네이션 및 달력 상태 관리 변수
         let currentPage = 1;
-        const itemsPerPage = 5; // [추가 요구사항] 문장 리스트는 5개씩만 표기
+        const itemsPerPage = 5; // 문장 리스트는 5개씩만 표기
         
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth(); // 0-indexed
@@ -973,7 +995,7 @@
             quoteInput.focus();
         });
 
-        // [PRD 2 - 열람 기능 구현 (5개씩 슬라이싱, 페이지네이션 렌더링, 오름차순 정렬 및 빈 상태)]
+        // [PRD 2 - 열람 기능 구현]
         function renderQuotes() {
             quoteListContainer.innerHTML = '';
             const quotes = getSavedQuotes();
@@ -1001,7 +1023,7 @@
                 return a.createdAt - b.createdAt;
             });
 
-            // [추가 요구사항] 5개씩 나누기 위한 페이지네이션 데이터 연산
+            // 5개씩 나누기 위한 페이지네이션 데이터 연산
             const totalItems = sortedQuotes.length;
             const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -1030,7 +1052,7 @@
                         </div>
                     </div>
                     <div style="display: flex; gap: var(--spacing-8); align-items: center; flex-shrink: 0;">
-                        <!-- [추가 요구사항] 수정 기능 앵커 배치 -->
+                        <!-- 수정 기능 앵커 배치 -->
                         <button class="btn-delete" title="문장 수정" onclick="openEditModal('${quote.id}')">수정</button>
                         <span class="meta-divider" style="color: var(--color-fog);">|</span>
                         <!-- [PRD 3 - 삭제 버튼 배치] -->
@@ -1044,7 +1066,7 @@
             renderPaginationControls(totalPages);
         }
 
-        // [추가 요구사항] 페이지네이션 제어 컨트롤 박스 렌더링
+        // 페이지네이션 제어 컨트롤 박스 렌더링
         function renderPaginationControls(totalPages) {
             const controlsContainer = document.getElementById('pagination-controls');
             controlsContainer.innerHTML = '';
@@ -1094,7 +1116,6 @@
                 quotes = quotes.filter(quote => quote.id !== id);
                 saveQuotes(quotes);
                 
-                // 마지막 페이지에서 마지막 아이템이 삭제되면 이전 페이지로 보정
                 const totalPages = Math.ceil(quotes.length / itemsPerPage);
                 if (currentPage > totalPages) {
                     currentPage = totalPages || 1;
@@ -1104,7 +1125,7 @@
             }
         }
 
-        // [추가 요구사항] 수정 모달 제어 로직
+        // 수정 모달 제어 로직
         function openEditModal(id) {
             const quotes = getSavedQuotes();
             const quoteToEdit = quotes.find(quote => quote.id === id);
@@ -1298,3 +1319,4 @@
     </script>
 </body>
 </html>
+```
