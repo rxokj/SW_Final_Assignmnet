@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Quote Archive — 나만의 문장 저장소</title>
+    <!-- [디자인 가이드] Fable 스타일 서체 로드 (Inter & Fraunces - Heldane Display 대체) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           [디자인 가이드 - Fable 스타일 토큰 정의]
+           ========================================================================== */
+        :root {
+            /* Colors */
+            --color-fable-forest: #064c37;
+            --color-storybook-sky: #43a1d7;
+            --color-paper-cream: #f7f4ee;
+            --color-ink: #161015;
+            --color-charcoal-plum: #292229;
+            --color-graphite: #3f383d;
+            --color-char: #070607;
+            --color-pure-white: #ffffff;
+            --color-fog: #ededed;
+
+            /* Typography - Font Families */
+            --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-heldane-display: 'Fraunces', serif; /* Heldane Display 대체로 Fraunces 적용 */
+
+            /* Typography - Scale & Tracking */
+            --text-caption: 12px;
+            --leading-caption: 1.5;
+            --tracking-caption: -0.016em;
+            
+            --text-body-sm: 14px;
+            --leading-body-sm: 1.43;
+            --tracking-body-sm: -0.025em;
+            
+            --text-body: 16px;
+            --leading-body: 1.5;
+            --tracking-body: -0.02em;
+            
+            --text-subheading: 20px;
+            --leading-subheading: 1.33;
+            --tracking-subheading: -0.02em;
+            
+            --text-heading-sm: 24px;
+            --leading-heading-sm: 1.42;
+            --tracking-heading-sm: -0.02em;
+            
+            --text-heading: 30px;
+            --leading-heading: 1.25;
+            --tracking-heading: -0.022em;
+            
+            --text-heading-lg: 48px;
+            --leading-heading-lg: 0.94;
+            
+            --text-display: 72px;
+            --leading-display: 0.88;
+
+            /* Spacing */
+            --spacing-4: 4px;
+            --spacing-8: 8px;
+            --spacing-12: 12px;
+            --spacing-16: 16px;
+            --spacing-20: 20px;
+            --spacing-24: 24px;
+            --spacing-28: 28px;
+            --spacing-32: 32px;
+            --spacing-40: 40px;
+            --spacing-52: 52px;
+            --spacing-80: 80px;
+            --spacing-100: 100px;
+
+            /* Border Radius */
+            --radius-cards: 12px;
+            --radius-buttons: 60px;
+            --radius-largecards: 48px;
+            --radius-smallchips: 8px;
+
+            /* Shadows */
+            --shadow-lg: rgba(0, 0, 0, 0.4) 0px 4px 20px 0px;
+            --shadow-lg-2: rgba(0, 0, 0, 0.6) 0px 4px 20px 0px;
+        }
+
+        /* 기본 초기화 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            background-color: var(--color-pure-white);
+            color: var(--color-graphite);
+            font-size: var(--text-body);
+            line-height: var(--leading-body);
+            letter-spacing: var(--tracking-body);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 내비게이션 바 (Transparent Minimal) */
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-24) var(--spacing-40);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .navbar-brand {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-heading-sm);
+            font-weight: 500;
+            color: var(--color-pure-white);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        /* ==========================================================================
+           [Section Band System 적용]
+           - Fable Forest(#064c37) -> Paper Cream(#f7f4ee) -> Char(#070607) 구조
+           ========================================================================== */
+        .section-band {
+            width: 100%;
+            padding: var(--spacing-80) 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 var(--spacing-40);
+            margin: 0 auto;
+        }
+
+        /* 1. Hero Band (Fable Forest) - 입력 폼 배치 */
+        .band-hero {
+            background-color: var(--color-fable-forest);
+            color: var(--color-pure-white);
+            min-height: 520px;
+            padding-top: var(--spacing-100);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-80);
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-40);
+                padding-top: var(--spacing-40);
+            }
+        }
+
+        .hero-text-block {
+            max-width: 520px;
+        }
+
+        .hero-title {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-heading-lg);
+            line-height: var(--leading-heading-lg);
+            color: var(--color-pure-white);
+            margin-bottom: var(--spacing-20);
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-body);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: var(--tracking-body);
+        }
+
+        /* ==========================================================================
+           [PRD 1 - 입력 기능 UI 구조 & Fable Cream Card 스타일]
+           ========================================================================== */
+        .input-card {
+            background-color: var(--color-pure-white);
+            border-radius: var(--radius-cards);
+            padding: var(--spacing-32);
+            box-shadow: var(--shadow-lg);
+            color: var(--color-ink);
+        }
+
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-20);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-8);
+        }
+
+        .form-group label {
+            font-size: var(--text-body-sm);
+            font-weight: 500;
+            color: var(--color-ink);
+            letter-spacing: var(--tracking-body-sm);
+        }
+
+        .form-group textarea {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-body);
+            padding: var(--spacing-12);
+            border: 1px solid var(--color-fog);
+            border-radius: var(--radius-smallchips);
+            background-color: var(--color-paper-cream);
+            color: var(--color-ink);
+            resize: vertical;
+            min-height: 90px;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .form-group textarea:focus {
+            border-color: var(--color-fable-forest);
+            background-color: var(--color-pure-white);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-16);
+        }
+
+        .form-group input {
+            font-family: var(--font-inter);
+            font-size: var(--text-body-sm);
+            padding: var(--spacing-12);
+            border: 1px solid var(--color-fog);
+            border-radius: var(--radius-smallchips);
+            background-color: var(--color-paper-cream);
+            color: var(--color-ink);
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--color-fable-forest);
+            background-color: var(--color-pure-white);
+        }
+
+        /* Fable Filled Pill Button - Dark */
+        .btn-submit {
+            font-family: var(--font-inter);
+            background-color: var(--color-charcoal-plum);
+            color: var(--color-pure-white);
+            border: none;
+            padding: var(--spacing-16) var(--spacing-28);
+            font-size: var(--text-body);
+            font-weight: 500;
+            border-radius: var(--radius-buttons);
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            letter-spacing: var(--tracking-body);
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: var(--spacing-12);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--color-ink);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* 2. Content Band (Paper Cream) - 아카이브 리스트 배치 */
+        .band-archive {
+            background-color: var(--color-paper-cream);
+        }
+
+        /* ==========================================================================
+           [PRD 2, 3 - 아카이브 리스트 (Elevated Feature Card 구조 - 2컬럼 레이아웃)]
+           ========================================================================== */
+        .archive-card {
+            background-color: var(--color-pure-white);
+            border-radius: var(--radius-largecards); /* 48px 대형 라운드 카드 */
+            padding: var(--spacing-52);
+            box-shadow: var(--shadow-lg-2);
+            color: var(--color-ink);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .archive-card {
+                padding: var(--spacing-24);
+                border-radius: var(--radius-cards);
+            }
+        }
+
+        .section-title {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-heading);
+            line-height: var(--leading-heading);
+            font-weight: 500;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-32);
+            border-bottom: 2px solid var(--color-fable-forest);
+            padding-bottom: var(--spacing-12);
+        }
+
+        /* 2컬럼 레이아웃 (달력 & 리스트) */
+        .archive-body-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: var(--spacing-52);
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .archive-body-layout {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-40);
+            }
+        }
+
+        /* 달력 UI 스타일 */
+        .calendar-wrapper {
+            background-color: var(--color-paper-cream);
+            border-radius: var(--radius-cards);
+            padding: var(--spacing-24);
+            border: 1px solid var(--color-fog);
+            position: sticky;
+            top: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-20);
+        }
+
+        .calendar-header h3 {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-subheading);
+            font-weight: 600;
+            color: var(--color-ink);
+        }
+
+        .calendar-nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-inter);
+            font-size: var(--text-body);
+            color: var(--color-graphite);
+            padding: var(--spacing-8);
+            border-radius: 50%;
+            transition: background-color 0.2s, color 0.2s;
+            line-height: 1;
+        }
+
+        .calendar-nav-btn:hover {
+            background-color: var(--color-fog);
+            color: var(--color-ink);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            font-size: var(--text-caption);
+            color: var(--color-graphite);
+            margin-bottom: var(--spacing-8);
+            letter-spacing: var(--tracking-caption);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            row-gap: 6px;
+            column-gap: 4px;
+        }
+
+        .calendar-day-cell {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-body-sm);
+            font-weight: 500;
+            color: var(--color-ink);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.2s, color 0.2s;
+            user-select: none;
+        }
+
+        .calendar-day-cell:hover {
+            background-color: var(--color-fog);
+        }
+
+        .calendar-day-cell.other-month {
+            color: var(--color-fog);
+            cursor: default;
+        }
+        .calendar-day-cell.other-month:hover {
+            background-color: transparent;
+        }
+
+        .calendar-day-cell.today {
+            border: 1.5px solid var(--color-fable-forest);
+        }
+
+        .calendar-day-cell .dot {
+            position: absolute;
+            bottom: 4px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--color-fable-forest);
+        }
+
+        /* ---------------------------------------------------------
+           아카이브 리스트 영역
+           --------------------------------------------------------- */
+        .list-container {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .quote-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+        }
+
+        /* 가독성을 높인 리스트 아이템 구조 - 색상 대비 및 넉넉한 마진 활용 */
+        .quote-item {
+            padding: var(--spacing-28) var(--spacing-16);
+            border-bottom: 1px solid var(--color-paper-cream);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--spacing-24);
+            transition: background-color 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
+            animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .quote-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 달력 클릭 시 매칭되는 아카이브 문장 하이라이트 효과 */
+        .quote-item.highlight {
+            background-color: rgba(67, 161, 215, 0.18); /* Storybook Sky를 기반으로 한 부드러운 하늘색 강조 */
+            border-radius: var(--radius-smallchips);
+        }
+
+        .quote-content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-12);
+        }
+
+        .quote-text {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-subheading);
+            line-height: var(--leading-subheading);
+            color: var(--color-ink);
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .quote-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-8);
+            font-size: var(--text-body-sm);
+            color: var(--color-graphite);
+        }
+
+        .quote-source {
+            font-weight: 500;
+        }
+
+        .meta-divider {
+            color: var(--color-fog);
+        }
+
+        .quote-date {
+            font-size: var(--text-caption);
+            letter-spacing: var(--tracking-caption);
+        }
+
+        /* 텍스트 링크 기반 액션 버튼 (수정/삭제) */
+        .btn-delete {
+            background: none;
+            border: none;
+            font-family: var(--font-inter);
+            font-size: var(--text-body-sm);
+            font-weight: 500;
+            color: var(--color-graphite);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            cursor: pointer;
+            padding: var(--spacing-4) var(--spacing-8);
+            border-radius: var(--radius-smallchips);
+            transition: color 0.2s, background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-delete:hover {
+            color: var(--color-ink);
+            background-color: var(--color-paper-cream);
+        }
+
+        /* 데이터가 없을 때 표시할 빈 상태 */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-52) var(--spacing-20);
+            color: var(--color-graphite);
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-subheading);
+            font-style: italic;
+            width: 100%;
+        }
+
+        /* ---------------------------------------------------------
+           [추가 요구사항] 페이지네이션 버튼 디자인
+           --------------------------------------------------------- */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-8);
+            margin-top: var(--spacing-40);
+        }
+
+        .pagination-btn {
+            background-color: var(--color-pure-white);
+            border: 1px solid var(--color-fog);
+            color: var(--color-graphite);
+            font-family: var(--font-inter);
+            font-size: var(--text-body-sm);
+            font-weight: 500;
+            padding: var(--spacing-8) var(--spacing-16);
+            border-radius: var(--radius-buttons);
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .pagination-btn:hover {
+            background-color: var(--color-paper-cream);
+            color: var(--color-ink);
+        }
+
+        .pagination-btn.active {
+            background-color: var(--color-fable-forest);
+            color: var(--color-pure-white);
+            border-color: var(--color-fable-forest);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            background-color: var(--color-pure-white);
+            color: var(--color-fog);
+        }
+
+        /* ---------------------------------------------------------
+           [추가 요구사항] 커스텀 수정 모달 스타일
+           --------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(22, 16, 21, 0.4); /* Ink 색상 기준 반투명 배경 */
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--color-paper-cream); /* Fable 시그니처 크림 배경 */
+            border-radius: var(--radius-largecards);
+            padding: var(--spacing-40);
+            width: 90%;
+            max-width: 540px;
+            box-shadow: var(--shadow-lg-2);
+            color: var(--color-ink);
+            border: 1px solid var(--color-fog);
+            animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-title {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-heading-sm);
+            margin-bottom: var(--spacing-24);
+            border-bottom: 2px solid var(--color-fable-forest);
+            padding-bottom: var(--spacing-8);
+        }
+
+        .modal-btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-16);
+            margin-top: var(--spacing-12);
+        }
+
+        .btn-secondary {
+            font-family: var(--font-inter);
+            background-color: var(--color-pure-white);
+            color: var(--color-graphite);
+            border: 1px solid var(--color-fog);
+            padding: var(--spacing-16) var(--spacing-28);
+            font-size: var(--text-body);
+            font-weight: 500;
+            border-radius: var(--radius-buttons);
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-fog);
+            color: var(--color-ink);
+        }
+
+        /* 3. Footer Band (Char) */
+        .band-footer {
+            background-color: var(--color-char);
+            color: rgba(255, 255, 255, 0.4);
+            padding: var(--spacing-52) 0;
+            text-align: center;
+            font-size: var(--text-caption);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heldane-display);
+            font-size: var(--text-body);
+            color: var(--color-pure-white);
+            margin-bottom: var(--spacing-8);
+            font-weight: 400;
+        }
+
+        /* 애니메이션 키프레임들 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 미니멀 내비게이션 바 -->
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">Daily Quote Archive</a>
+    </nav>
+
+    <!-- ==========================================================================
+         [Hero Band (Fable Forest) - 브랜드 메시지 및 입력 폼]
+         ========================================================================== -->
+    <section class="section-band band-hero">
+        <div class="section-container hero-grid">
+            
+            <!-- 왼쪽 컬럼: 브랜드 타이틀 및 설명 -->
+            <div class="hero-text-block">
+                <h1 class="hero-title">나만의 문장 저장소</h1>
+                <p class="hero-subtitle">
+                    오늘 당신의 시선이 머물렀던 인상 깊은 문장들을 이곳에 기록하세요. 영화의 대사나 책의 구절, 갑자기 떠오른 생각이나 한 줄의 일기도 가능합니다.<br>
+                    작은 문장과 영감의 조각들을 모아 나만의 아카이브를 만들어보세요.
+                </p>
+            </div>
+
+            <!-- 오른쪽 컬럼: 문장 입력 폼 (PRD 1 - 입력 기능) -->
+            <div class="input-card">
+                <form id="quote-form" class="input-form" novalidate>
+                    <div class="form-group">
+                        <label for="quote-input">새겨둘 문장</label>
+                        <textarea 
+                            id="quote-input" 
+                            placeholder="마음에 와닿은 문장을 적어보세요..." 
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- [수정 요구사항] '출처 및 저자'에서 '출처'로 레이블 변경 및 플레이스홀더를 《데미안》으로 수정 -->
+                        <div class="form-group">
+                            <label for="source-input">출처</label>
+                            <input 
+                                type="text" 
+                                id="source-input" 
+                                placeholder="예시: 《데미안》" 
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="date-input">기록 날짜</label>
+                            <input 
+                                type="date" 
+                                id="date-input" 
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">문장 저장하기</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         [Content Band (Paper Cream) - 아카이브 리스트 및 달력]
+         ========================================================================== -->
+    <section class="section-band band-archive">
+        <div class="section-container">
+            
+            <!-- Elevated Feature Card 형태의 리스트 박스 -->
+            <div class="archive-card">
+                <h2 class="section-title">아카이브 리스트</h2>
+                
+                <!-- 2컬럼 레이아웃 (달력 & 아카이브) -->
+                <div class="archive-body-layout">
+                    
+                    <!-- 왼쪽 영역: 달력 컴포넌트 -->
+                    <div class="calendar-wrapper">
+                        <div class="calendar-header">
+                            <button id="prev-month" class="calendar-nav-btn" title="이전 달">&lt;</button>
+                            <h3 id="calendar-title">2026. 06</h3>
+                            <button id="next-month" class="calendar-nav-btn" title="다음 달">&gt;</button>
+                        </div>
+                        
+                        <div class="calendar-weekdays">
+                            <div>일</div>
+                            <div>월</div>
+                            <div>화</div>
+                            <div>수</div>
+                            <div>목</div>
+                            <div>금</div>
+                            <div>토</div>
+                        </div>
+                        
+                        <div id="calendar-grid" class="calendar-grid">
+                            <!-- JS를 통해 달력의 날짜 칸이 동적 생성됩니다. -->
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 영역: 아카이브 목록 (PRD 2, 3 - 아카이브 리스트 목록 영역) -->
+                    <div class="list-container">
+                        <ul id="quote-list" class="quote-list">
+                            <!-- JS에 의해 동적으로 데이터가 생성되는 부분 -->
+                        </ul>
+                        
+                        <!-- [추가 요구사항] 페이지네이션 제어 컨트롤 박스 -->
+                        <div id="pagination-controls" class="pagination-container"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         [추가 요구사항] 커스텀 수정 모달 팝업
+         ========================================================================== -->
+    <div id="edit-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="modal-title">문장 수정하기</h3>
+            <form id="edit-form" class="input-form" novalidate>
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="edit-quote-input">새겨둘 문장</label>
+                    <textarea id="edit-quote-input" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-source-input">출처</label>
+                        <input type="text" id="edit-source-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-date-input">기록 날짜</label>
+                        <input type="date" id="edit-date-input" required>
+                    </div>
+                </div>
+                
+                <div class="modal-btn-row">
+                    <button type="button" id="btn-edit-cancel" class="btn-secondary">취소</button>
+                    <button type="submit" class="btn-submit" style="margin-top: 0;">수정 완료</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         [Footer Band (Char) - 터미널 푸터 영역]
+         ========================================================================== -->
+    <footer class="section-band band-footer">
+        <div class="section-container">
+            <div class="footer-brand">Daily Quote Archive</div>
+            <p>a literary reading nook with cream paper and ink. &copy; 2026</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         [JavaScript Logic - 데이터 관리, 페이지네이션, 수정 모달 및 달력 연동 핵심 로직]
+         ========================================================================== -->
+    <script>
+        // DOM 캐싱
+        const quoteForm = document.getElementById('quote-form');
+        const quoteInput = document.getElementById('quote-input');
+        const sourceInput = document.getElementById('source-input');
+        const dateInput = document.getElementById('date-input');
+        const quoteListContainer = document.getElementById('quote-list');
+        
+        const calendarTitle = document.getElementById('calendar-title');
+        const calendarGrid = document.getElementById('calendar-grid');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+
+        // 수정 모달 관련 캐싱
+        const editModal = document.getElementById('edit-modal');
+        const editForm = document.getElementById('edit-form');
+        const editIdInput = document.getElementById('edit-id');
+        const editQuoteInput = document.getElementById('edit-quote-input');
+        const editSourceInput = document.getElementById('edit-source-input');
+        const editDateInput = document.getElementById('edit-date-input');
+        const btnEditCancel = document.getElementById('btn-edit-cancel');
+
+        const STORAGE_KEY = 'fable_quote_archive_data';
+
+        // 페이지네이션 및 달력 상태 관리 변수
+        let currentPage = 1;
+        const itemsPerPage = 5; // [추가 요구사항] 문장 리스트는 5개씩만 표기
+        
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth(); // 0-indexed
+
+        // 앱 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            setTodayDate();
+            renderApp();
+            
+            // 달력 네비게이션 이벤트 리스너
+            prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+            nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+            // 수정 모달 닫기 바인딩
+            btnEditCancel.addEventListener('click', closeEditModal);
+        });
+
+        // 오늘 날짜 세팅
+        function setTodayDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            dateInput.value = `${yyyy}-${mm}-${dd}`;
+        }
+
+        // [데이터 보존 기능 - LocalStorage 읽기]
+        function getSavedQuotes() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        // [데이터 보존 기능 - LocalStorage 쓰기]
+        function saveQuotes(quotes) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(quotes));
+        }
+
+        // 앱 데이터 갱신 시 달력과 리스트를 함께 리렌더링하는 통합 관리 함수
+        function renderApp() {
+            renderQuotes();
+            renderCalendar();
+        }
+
+        // [PRD 1 - 입력 기능 구현]
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const text = quoteInput.value.trim();
+            const source = sourceInput.value.trim();
+            const date = dateInput.value;
+
+            if (!text) {
+                alert('문장을 입력해 주세요.');
+                quoteInput.focus();
+                return;
+            }
+            if (!source) {
+                alert('출처를 입력해 주세요.');
+                sourceInput.focus();
+                return;
+            }
+            if (!date) {
+                alert('기록 날짜를 지정해 주세요.');
+                dateInput.focus();
+                return;
+            }
+
+            const newQuote = {
+                id: Date.now().toString(),
+                text: text,
+                source: source,
+                date: date,
+                createdAt: new Date().getTime()
+            };
+
+            const currentQuotes = getSavedQuotes();
+            currentQuotes.push(newQuote);
+            saveQuotes(currentQuotes);
+            
+            // 입력 후, 새로운 아이템이 맨 마지막에 위치하므로 맨 뒤 페이지로 자동 이동 설정
+            const totalItems = currentQuotes.length;
+            currentPage = Math.ceil(totalItems / itemsPerPage);
+
+            renderApp();
+
+            // 입력창 초기화
+            quoteInput.value = '';
+            sourceInput.value = '';
+            setTodayDate();
+            quoteInput.focus();
+        });
+
+        // [PRD 2 - 열람 기능 구현 (5개씩 슬라이싱, 페이지네이션 렌더링, 오름차순 정렬 및 빈 상태)]
+        function renderQuotes() {
+            quoteListContainer.innerHTML = '';
+            const quotes = getSavedQuotes();
+
+            // 아카이브에 영감이 없을 때 요구 메시지 출력
+            if (quotes.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-state';
+                emptyDiv.textContent = '첫 번째 영감을 남겨보세요';
+                quoteListContainer.appendChild(emptyDiv);
+                
+                // 페이지네이션 컨트롤 초기화
+                document.getElementById('pagination-controls').innerHTML = '';
+                return;
+            }
+
+            // 날짜 기준 오름차순 정렬 (앞선 날짜가 위로, 늦은 날짜가 아래로)
+            const sortedQuotes = [...quotes].sort((a, b) => {
+                const dateA = new Date(a.date).getTime();
+                const dateB = new Date(b.date).getTime();
+                
+                if (dateA !== dateB) {
+                    return dateA - dateB;
+                }
+                return a.createdAt - b.createdAt;
+            });
+
+            // [추가 요구사항] 5개씩 나누기 위한 페이지네이션 데이터 연산
+            const totalItems = sortedQuotes.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // 현재 페이지의 유효범위 안전 마진 확보
+            if (currentPage > totalPages) {
+                currentPage = totalPages || 1;
+            }
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedQuotes = sortedQuotes.slice(startIndex, endIndex);
+
+            // 리스트 엘리먼트 생성 및 주입
+            paginatedQuotes.forEach(quote => {
+                const li = document.createElement('li');
+                li.className = 'quote-item';
+                li.setAttribute('data-date', quote.date);
+                
+                li.innerHTML = `
+                    <div class="quote-content-wrapper">
+                        <div class="quote-text">${escapeHTML(quote.text)}</div>
+                        <div class="quote-meta">
+                            <span class="quote-source">— ${escapeHTML(quote.source)}</span>
+                            <span class="meta-divider">•</span>
+                            <span class="quote-date">${quote.date}</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--spacing-8); align-items: center; flex-shrink: 0;">
+                        <!-- [추가 요구사항] 수정 기능 앵커 배치 -->
+                        <button class="btn-delete" title="문장 수정" onclick="openEditModal('${quote.id}')">수정</button>
+                        <span class="meta-divider" style="color: var(--color-fog);">|</span>
+                        <!-- [PRD 3 - 삭제 버튼 배치] -->
+                        <button class="btn-delete" title="문장 삭제" onclick="deleteQuote('${quote.id}')">삭제</button>
+                    </div>
+                `;
+                quoteListContainer.appendChild(li);
+            });
+
+            // 페이지네이션 컨트롤 렌더링 호출
+            renderPaginationControls(totalPages);
+        }
+
+        // [추가 요구사항] 페이지네이션 제어 컨트롤 박스 렌더링
+        function renderPaginationControls(totalPages) {
+            const controlsContainer = document.getElementById('pagination-controls');
+            controlsContainer.innerHTML = '';
+
+            if (totalPages <= 1) return; // 1페이지 이하면 페이지네이션 표시 안 함
+
+            // [이전] 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.textContent = '이전';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => {
+                currentPage--;
+                renderQuotes();
+            });
+            controlsContainer.appendChild(prevBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderQuotes();
+                });
+                controlsContainer.appendChild(pageBtn);
+            }
+
+            // [다음] 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.textContent = '다음';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.addEventListener('click', () => {
+                currentPage++;
+                renderQuotes();
+            });
+            controlsContainer.appendChild(nextBtn);
+        }
+
+        // [PRD 3 - 관리 기능: 팝업 확인 후 데이터 삭제]
+        function deleteQuote(id) {
+            const isConfirmed = confirm('정말 삭제하시겠습니까?');
+            if (isConfirmed) {
+                let quotes = getSavedQuotes();
+                quotes = quotes.filter(quote => quote.id !== id);
+                saveQuotes(quotes);
+                
+                // 마지막 페이지에서 마지막 아이템이 삭제되면 이전 페이지로 보정
+                const totalPages = Math.ceil(quotes.length / itemsPerPage);
+                if (currentPage > totalPages) {
+                    currentPage = totalPages || 1;
+                }
+                
+                renderApp();
+            }
+        }
+
+        // [추가 요구사항] 수정 모달 제어 로직
+        function openEditModal(id) {
+            const quotes = getSavedQuotes();
+            const quoteToEdit = quotes.find(quote => quote.id === id);
+
+            if (quoteToEdit) {
+                editIdInput.value = quoteToEdit.id;
+                editQuoteInput.value = quoteToEdit.text;
+                editSourceInput.value = quoteToEdit.source;
+                editDateInput.value = quoteToEdit.date;
+                editModal.style.display = 'flex';
+                editQuoteInput.focus();
+            }
+        }
+
+        function closeEditModal() {
+            editModal.style.display = 'none';
+        }
+
+        // 수정 폼 제출 핸들러
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const id = editIdInput.value;
+            const text = editQuoteInput.value.trim();
+            const source = editSourceInput.value.trim();
+            const date = editDateInput.value;
+
+            if (!text) {
+                alert('문장을 입력해 주세요.');
+                editQuoteInput.focus();
+                return;
+            }
+            if (!source) {
+                alert('출처를 입력해 주세요.');
+                editSourceInput.focus();
+                return;
+            }
+            if (!date) {
+                alert('기록 날짜를 지정해 주세요.');
+                editDateInput.focus();
+                return;
+            }
+
+            let quotes = getSavedQuotes();
+            const index = quotes.findIndex(quote => quote.id === id);
+
+            if (index !== -1) {
+                quotes[index].text = text;
+                quotes[index].source = source;
+                quotes[index].date = date;
+
+                saveQuotes(quotes);
+                renderApp();
+                closeEditModal();
+            }
+        });
+
+        // 동적 달력 생성 및 렌더링 로직
+        function renderCalendar() {
+            calendarGrid.innerHTML = '';
+            
+            // 달력 헤더 타이틀 업데이트
+            calendarTitle.textContent = `${currentYear}. ${String(currentMonth + 1).padStart(2, '0')}`;
+            
+            const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay(); // 이번달 1일 요일
+            const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate(); // 이번달 마지막 일
+            const prevLastDay = new Date(currentYear, currentMonth, 0).getDate(); // 이전달 마지막 일
+            
+            const quotes = getSavedQuotes();
+            
+            const today = new Date();
+            const isCurrentMonthToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+
+            // 1. 이전 달 날짜 채우기
+            for (let i = firstDayIndex; i > 0; i--) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day-cell other-month';
+                dayDiv.textContent = prevLastDay - i + 1;
+                calendarGrid.appendChild(dayDiv);
+            }
+
+            // 2. 이번 달 날짜 그리기
+            for (let day = 1; day <= lastDay; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day-cell';
+                dayDiv.textContent = day;
+
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                dayDiv.setAttribute('data-cal-date', dateStr);
+
+                if (isCurrentMonthToday && today.getDate() === day) {
+                    dayDiv.classList.add('today');
+                }
+
+                // 기록된 문장이 있으면 동그라미 점 추가
+                const hasQuote = quotes.some(quote => quote.date === dateStr);
+                if (hasQuote) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dayDiv.appendChild(dot);
+                }
+
+                // 날짜 클릭 이벤트 바인딩
+                dayDiv.addEventListener('click', () => {
+                    handleDateClick(dateStr);
+                });
+
+                calendarGrid.appendChild(dayDiv);
+            }
+
+            // 3. 다음 달 날짜 채우기
+            const totalCells = firstDayIndex + lastDay;
+            const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            for (let i = 1; i <= remainingCells; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day-cell other-month';
+                dayDiv.textContent = i;
+                calendarGrid.appendChild(dayDiv);
+            }
+        }
+
+        // 달력 월 변경 기능
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear -= 1;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear += 1;
+            }
+            renderCalendar();
+        }
+
+        // [달력 날짜 클릭 시 아카이브 페이지네이션 탐색 및 연동 인터랙션]
+        function handleDateClick(dateStr) {
+            const quotes = getSavedQuotes();
+            
+            // 날짜 기준 오름차순으로 전체 리스트를 정렬
+            const sortedQuotes = [...quotes].sort((a, b) => {
+                const dateA = new Date(a.date).getTime();
+                const dateB = new Date(b.date).getTime();
+                if (dateA !== dateB) return dateA - dateB;
+                return a.createdAt - b.createdAt;
+            });
+
+            // 해당 날짜를 가진 첫 번째 아이템의 전체 정렬 리스트 상 인덱스 검색
+            const targetIndex = sortedQuotes.findIndex(quote => quote.date === dateStr);
+
+            if (targetIndex !== -1) {
+                // 해당 아이템이 속한 페이지 번호 연산 (1-indexed)
+                const targetPage = Math.ceil((targetIndex + 1) / itemsPerPage);
+                
+                // 페이지를 전환하고 렌더링
+                currentPage = targetPage;
+                renderQuotes();
+
+                // 렌더링 갱신 시간차를 극복하기 위해 비동기 지연 실행
+                setTimeout(() => {
+                    const targetItems = document.querySelectorAll(`.quote-item[data-date="${dateStr}"]`);
+                    
+                    if (targetItems.length > 0) {
+                        targetItems[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        targetItems.forEach(item => {
+                            item.classList.remove('highlight');
+                            void item.offsetWidth; // 리플로우 강제
+                            
+                            item.classList.add('highlight');
+                            
+                            setTimeout(() => {
+                                item.classList.remove('highlight');
+                            }, 2000);
+                        });
+                    }
+                }, 50);
+            } else {
+                alert(`${dateStr}에 기록된 문장이 없습니다. 새로운 문장을 추가해 보세요!`);
+            }
+        }
+
+        // XSS 취약점 대응 이스케이프 유틸리티
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html>
